@@ -3,7 +3,7 @@ class productos {
 
     listar() {
         document.getElementById('page_lista_productos').style.display = 'block';
-        document.getElementById('cumple_arturito').style.display = 'none';
+        //document.getElementById('cumple_arturito').style.display = 'none';
         
         document.getElementById('contenido_lista_productos').innerHTML = '';
 
@@ -124,7 +124,13 @@ class productos {
             '</div>'+
             '<div class="form-group">'+
                 '<label for="cantidad">Cantidad:</label>'+
-                '<input type="text" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required value="20">'+
+                '<input type="number" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required value="20">'+
+                '<div class="valid-feedback">Valid.</div>'+
+                '<div class="invalid-feedback">Please fill out this field.</div>'+
+            '</div>'+
+            '<div class="form-group">'+
+                '<label for="tipo">Tipo producto:</label>'+
+                '<input type="text" class="form-control" id="tipo" placeholder="Tipo producto" name="tipo" required value="prueba">'+
                 '<div class="valid-feedback">Valid.</div>'+
                 '<div class="invalid-feedback">Please fill out this field.</div>'+
             '</div>'+
@@ -149,10 +155,6 @@ class productos {
                 df[elem[i].name] = elem[i].value; 
             }
         }
-        console.log(df);
-
-
-
         $.ajax({
             url: 'methods/crud.php',
             type: 'POST',
@@ -161,8 +163,9 @@ class productos {
                 info: df
             },
             success: function (response) {
-                console.log('response---',response);
-                
+                if(response === 'true'){
+                    prod.listar();
+                }
             }
         });
     
@@ -171,6 +174,20 @@ class productos {
     edit_product(id){
         document.getElementById('modal_title').innerHTML = 'Editar producto';
         document.getElementById('modal_content').innerHTML = 'Formulario:';
+    }
+
+    login(){
+        var df = {};
+        var elem = document.getElementById('form_login').elements;
+        for(var i = 0; i < elem.length; i++){
+        console.log(elem[i]);
+            if(elem[i].type == 'button' || elem[i].type == 'submit'){
+                //
+            }else{
+                df[elem[i].name] = elem[i].value; 
+            }
+        }
+        console.log(df);
     }
 
 }

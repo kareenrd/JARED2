@@ -49,26 +49,18 @@
     }
 
     function crear_producto($data){
-        //print_r($data);
         $info = $data['info'];
-        //echo $info['nobre_producto'];
         $conn = conect();
         $sql = 'INSERT INTO inventario(`id`, `nombre_producto`, `fragancia`, `color`, `tamano`, `cantidad`) VALUES (0,\''.$info['nobre_producto'].'\',\''.$info['fragancia'].'\',\''.$info['color'].'\',\''.$info['tamano'].'\',\''.$info['cantidad'].'\')';
-        echo $sql;
-        //$sql = 'SELECT * FROM inventario';
+        
         $response = mysqli_query($conn, $sql);
         
-        //mysqli_query($conn, $sql);
-        print_r($response);
-        // foreach ($info as $key => $value) {
-        //     //print_r($value);
-        //     $name = $value->name;
-        //     $value = $value->value;
-        //     echo 'nombre: ' . $name.' value: ' . $value;
-        //     //$sql = 'INSERT INTO inventario VALUES (,[value-2],[value-3],[value-4],[value-5],[value-6])'
-        // }
-
-        //return $data;
+        if($response == 1){
+            return true;
+        } else {
+            return false;
+        }
+        
 
     
     }
